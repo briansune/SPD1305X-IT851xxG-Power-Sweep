@@ -10,6 +10,7 @@ class IT85xxPlus:
         self.it85_port = 8085
         self.it85_socket = socket.socket()
         self.it85_info_dict = {}
+        self.it85_mes_full_dict = {}
         self.it85_mes_dict = {}
 
     def it85_connect(self):
@@ -97,7 +98,7 @@ class IT85xxPlus:
         }
 
     def it85_get_measure(self):
-        self.it85_mes_dict = {
+        self.it85_mes_full_dict = {
             'Volt Avg': float(self.it85_query('MEAS:VOLT?')),
             'Volt Max': float(self.it85_query('MEAS:VOLT:MAX?')),
             'Volt Min': float(self.it85_query('MEAS:VOLT:MIN?')),
@@ -106,6 +107,13 @@ class IT85xxPlus:
             'Curr Min': float(self.it85_query('MEAS:CURR:MIN?')),
             'Volt PTP': float(self.it85_query('MEAS:VOLT:RIPP?')),
             'Curr PTP': float(self.it85_query('MEAS:VOLT:RIPP?')),
+            'Powr Avg': float(self.it85_query('MEAS:POW?')),
+        }
+
+    def it85_get_coarse_measure(self):
+        self.it85_mes_dict = {
+            'Volt Avg': float(self.it85_query('MEAS:VOLT?')),
+            'Curr Avg': float(self.it85_query('MEAS:CURR?')),
             'Powr Avg': float(self.it85_query('MEAS:POW?')),
         }
 
